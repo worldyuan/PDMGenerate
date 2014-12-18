@@ -1,0 +1,1 @@
+var ${pdmT.code ? uncap_first} = new baseManage("${pdmT.code ? uncap_first}");

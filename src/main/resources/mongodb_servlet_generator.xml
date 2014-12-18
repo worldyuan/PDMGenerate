@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<generator>
+	<template>mongodb_servlet_Template</template>
+	<packages>
+		<package name="controller">com.dxfff.service.user.controller</package>
+		<package name="service">com.dxfff.service.user.service</package>
+		<package name="serviceImpl">com.dxfff.service.user.service.impl</package>
+		<package name="dao"></package>
+		<package name="daoImpl">com.dxfff.service.user.dao.impl</package>
+		<package name="db">com.dxfff.service.user.db</package>
+		<package name="coreException">com.dxfff.common.core.exception</package>
+		<package name="coreModel">com.dxfff.common.core.entity</package>
+		<package name="coreDao">com.xxfff.dao.mongodb</package>
+		<package name="coreDaoImpl">com.xxfff.dao.mongodb</package>
+		<package name="model">com.dxfff.service.user.model</package>
+		<package name="modelCondition">com.dxfff.service.user.model.condition</package>
+		<package name="modelTypeConvert">com.dxfff.service.user.model.typeConvert</package>
+		<package name="modelArray">com.dxfff.service.user.model.model.entityArray</package>
+		<package name="servlet">com.dxfff.service.user.servlet</package>
+	</packages>
+	<paths>
+	    <!-- 全部相对于项目的路径 -->
+		<path name="jsPath">js/</path>
+		<path name="manageJspPath">manage/</path>
+		<path name="portalJspPath">portal/</path>
+	</paths>
+</generator>
