@@ -48,6 +48,9 @@ public class CommandExec implements Command {
 	public void buildTemplate() {
 		String realFileName = generateEntity.getRealSavePath()
 				+ generateEntity.getFileName();
+		if(new File(realFileName).exists()){
+			return;
+		}
 
 		File newsDir = new File(generateEntity.getRealSavePath());
 		if (!newsDir.exists()) {

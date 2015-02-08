@@ -1,19 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/common/manage/taglib.jsp"%>
-<form action="${'$'}{basePath}/manage/${entityName ? uncap_first}/edit.action" method="post" id="edit_${entityName ? uncap_first}_form">
-    <table class="common_table">
-        <#list columnList as f>
-        <#if f.name == 'id'><input type="hidden" value="${'$'}{${entityName ? uncap_first}.${f.name}}" name="${f.name}"/></#if>
-        <#if f.name != 'id'>
-        <tr>
-            <th width="30%" align="right">${f.nameCN}：</th>
-            <td width="70%"><input class="input_240" type="text" name="${f.name}" value="${'$'}{${entityName ? uncap_first}.${f.name}}"/></td>
-        </tr>
-        </#if>
-        </#list>
+<%@ include file="/WEB-INF/jsp/include/taglibs.jsp"%>
+<section class="content" style="margin-top: 0">
+<form action="${'$'}{ctx }/manage/${pdmT.code ? uncap_first}/edit.action" target="#content" id="add_${pdmT.code ? uncap_first}_form"  method="post">
+	<input type="hidden" name="id" value="${'$'}{${pdmT.code ? uncap_first}.id }" />
+	<table id="myTable" border="0" width="100">
+		<tbody>
+	<#list pdmT.columns as f>
+	<#if f.code != 'id'>
+			<tr>
+	        	<th style="text-align: right;">${f.name}</th>
+	        	<td><input name="${f.code}" value="${'$'}{${pdmT.code ? uncap_first}.${f.code}}" type="text"/></td>
+			</tr>
+	</#if>
+    </#list>
+    	<tbody>
     </table>
+    <br/>
+	<div style="text-align: center;">
+		<button type="button" class="green" func="form" update>保存</button>
+		<button type="button">返回</button>
+	</div>
 </form>
-<div class="floatright absolute_right_botton_10px">
-    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="${entityName ? uncap_first}.edit()">保存</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="${entityName ? uncap_first}.cancelEdit()">关闭</a>
-</div>
+</section>

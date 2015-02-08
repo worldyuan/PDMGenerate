@@ -1,32 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/common/manage/taglib.jsp"%>
-<div id="${entityName ? uncap_first}ToolBar" style="padding:5px;height:auto">
-    <div style="margin-bottom:5px">
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="${entityName ? uncap_first}.toAdd(800, 500, '添加数据');">添加</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="${entityName ? uncap_first}.toEdit(800, 500, '修改数据');">修改</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="${entityName ? uncap_first}.deleteByIds();">删除</a>
-        <input class="easyui-searchbox"/>
-    </div>
-</div>
+<%@ include file="/WEB-INF/jsp/include/taglibs.jsp" %>
 
-<table id="${entityName ? uncap_first}Table" class="easyui-datagrid" data-options="
-    pageList : [15,30,50,100],
-    pageSize : 15,
-    url : '${"$"}{basePath}manage/${entityName ? uncap_first}/query.action',
-    rownumbers : true,
-    pagination : true,
-    toolbar : '${"#"}${entityName ? uncap_first}ToolBar',
-    striped : true,
-    fitColumns : true,
-    border : false,
-    fit : true">
-    <thead>
-        <tr>
-            <#list columnList as f>
-            <th data-options="field : '${f.name}'<#if f.name=='id'>, checkbox : true</#if>" width="10">${f.nameCN}</th>
-            </#list>
-        </tr>
-    </thead>
-</table>
-<div id="add_${entityName ? uncap_first}_Window" title="添加数据"></div>
-<div id="edit_${entityName ? uncap_first}_Window" title="修改数据"></div>
+<div style="width:100%;position:absolute;" id="content">
+<section class="alert">
+	<form method="link" action="page-new.html">
+		 <button class="green" func="get" target="#content" href="${'$'}{ctx }/manage/${pdmT.code ? uncap_first}/toAdd.action">新建${pdmT.name}</button>
+	</form>
+</section>
+<form action="${'$'}{ctx }/manage/${pdmT.code ? uncap_first}/toManager.action" target="#content">
+	<section class="content">
+		<section class="widget">
+			<header>
+				<span class="icon">&#128100;</span>
+				<hgroup>
+					<h1>${pdmT.name}</h1>
+					<h2>当前${pdmT.name}信息</h2>
+				</hgroup>
+				<aside>
+					<span>
+						<a href="#">&#9881;</a>
+						<ul class="settings-dd">
+							<li><label>Option a</label><input type="checkbox" checked="checked" /></li>
+							<li><label>Option b</label><input type="checkbox" checked="checked" /></li>
+							<li><label>Option c</label><input type="checkbox" checked="checked" /></li>
+						</ul>
+					</span>
+				</aside>
+			</header>
+			<div class="content">
+				<jsp:include page="query.jsp"></jsp:include>
+			</div>
+		</section>
+	</section>
+</form>
+</div>
+<script>
+$("#myTable").tablesorter({headers:{0:{sorter:false},4:{sorter:false}}});
+</script>
+<script src="${'$'}{ctx }/theme/${'$'}{sessionScope.theme}/js/custom.js"></script>

@@ -59,9 +59,9 @@ public interface Config {
 	String MODELTYPECONVERT_PATH =DEFAULT_MODELTYPECONVERT_PACKAGE == null ? null: ProjectProperty.SRC_PATH + "/" + DEFAULT_MODELTYPECONVERT_PACKAGE.replaceAll("\\.", "\\/") + "/";
 	String VOMODELTYPECONVERT_PATH = DEFAULT_VOMODELTYPECONVERT_PACKAGE == null ? null: ProjectProperty.SRC_PATH + "/" + DEFAULT_VOMODELTYPECONVERT_PACKAGE.replaceAll("\\.", "\\/") + "/";
 	String MODELARRAY_PATH = ProjectProperty.SRC_PATH + "/" + DEFAULT_MODELARRAY_PACKAGE.replaceAll("\\.", "\\/") + "/";
-	String JS_PATH = ProjectProperty.RESOURCES_PATH + "/" + ParseConfig.getConfig().get("jsPath");
-	String MANAGE_JSP_PATH = ProjectProperty.RESOURCES_PATH + "/" + ParseConfig.getConfig().get("manageJspPath");
-	String PORTAL_JSP_PATH = ProjectProperty.RESOURCES_PATH + "/" + ParseConfig.getConfig().get("portalJspPath");
+	String JS_PATH = ProjectProperty.PROJECT_PATH + "/" + ParseConfig.getConfig().get("jsPath");
+	String MANAGE_JSP_PATH = ProjectProperty.PROJECT_PATH + "/" + ParseConfig.getConfig().get("manageJspPath");
+	String PORTAL_JSP_PATH = ProjectProperty.PROJECT_PATH + "/" + ParseConfig.getConfig().get("portalJspPath");
 	String MAPPER_PATH = ProjectProperty.RESOURCES_PATH + "/" + ParseConfig.getConfig().get("mapperPath");
 	String TEMPLATE = xmlSettings.get("template").get("template");
 	
@@ -79,6 +79,7 @@ public interface Config {
 	String JSP_ADD_TEMPLATEFILE_PATH = "jsp_add.ftl";
 	String JSP_EDIT_TEMPLATEFILE_PATH = "jsp_edit.ftl";
 	String JSP_MANAGER_TEMPLATEFILE_PATH = "jsp_manager.ftl";
+	String JSP_QUERY_TEMPLATEFILE_PATH = "jsp_query.ftl";
 	String DB_TEMPLATEFILE_PATH = "db.ftl";
 	String SERVICE_TEMPLATEFILE_PATH = "service.ftl";
 	String VOSERVICE_TEMPLATEFILE_PATH = "voservice.ftl";

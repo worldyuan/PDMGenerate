@@ -1,23 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="${pdmT.code}Mapper">
-    <insert id="insert" parameterType="${pdmT.code}" useGeneratedKeys="true" keyProperty="id">
+<mapper namespace="${xml["packages"]["model"]}.${pdmT.code}Mapper">
+    <insert id="insert" parameterType="${xml["packages"]["model"]}.${pdmT.code}" useGeneratedKeys="true" keyProperty="id">
         insert into ${pdmT.code}
         (<include refid="common.insertColumns"/>
+        <if test="id !=null">
+        	,id
+        </if>
         <#list pdmT.columns as f>
-        	,${f.code}
+        <#if f.code != "id">
+        ,${f.code}
+        </#if>
         </#list>)
         values
         (<include refid="common.insertValues"/>
+        <if test="id !=null">
+        	,${'#'}{id}
+        </if>
         <#list pdmT.columns as f>
+        <#if f.code != "id">
         	,${'#'}{${f.code}}
+        </#if>
         </#list>
         )
     </insert>
     
-    <select id="select" parameterType="map" resultType="${pdmT.code}">
+    <select id="select" parameterType="map" resultType="${xml["packages"]["model"]}.${pdmT.code}">
         select * from ${pdmT.code}
         <where>
+        	<include refid="common.condition"/>
             <include refid="condition"/>
             <include refid="andLikeCondition"/>
             <include refid="startLikeCondition"/>
@@ -39,17 +50,10 @@
         </if>
     </select>
     
-    <select id="findAll" parameterType="map" resultType="${pdmT.code}">
-        select * from ${pdmT.code}
-        <where>
-            <include refid="condition"/>
-            <include refid="andLikeCondition"/>
-        </where>
-    </select>
-    
-    <select id="distinct" parameterType="map" resultType="${pdmT.code}">
+    <select id="distinct" parameterType="map" resultType="${xml["packages"]["model"]}.${pdmT.code}">
         select Distinct * from ${pdmT.code}
         <where>
+        	<include refid="common.condition"/>
             <include refid="condition"/>
             <include refid="andLikeCondition"/>
             <include refid="startLikeCondition"/>
@@ -74,16 +78,18 @@
     <select id="count" parameterType="map" resultType="int">
         select count(0) from ${pdmT.code}
         <where>
+        	<include refid="common.condition"/>
             <include refid="condition"/>
             <include refid="andLikeCondition"/>
             <include refid="startLikeCondition"/>
         </where>
     </select>
     
-    <select id="fetch" parameterType="int" resultType="${pdmT.code}">
+    <select id="fetch" parameterType="int" resultType="${xml["packages"]["model"]}.${pdmT.code}">
         select * from ${pdmT.code}
         <where>
             <if test="id != null">id=${'#'}{id}</if>
+            <include refid="common.condition"/>
             <include refid="condition"/>
         </where>
     </select>
@@ -92,6 +98,7 @@
         delete from ${pdmT.code}
         <where>
         	<if test="id != null">id=${'#'}{id}</if>
+        	<include refid="common.condition"/>
             <include refid="condition"/>
         </where>
     </delete>
@@ -103,13 +110,15 @@
 		</foreach>
 	</delete>
     
-    <update id="update" parameterType="${pdmT.code}">
+    <update id="update" parameterType="${xml["packages"]["model"]}.${pdmT.code}">
         update ${pdmT.code}
         <set>
             <#list pdmT.columns as f>
-                <if test="${f.code} !=null">
-                    ${f.code} = ${'#'}{${f.code}},
-                </if>
+            <#if f.code != "id">
+            <if test="${f.code} !=null">
+                ${f.code} = ${'#'}{${f.code}},
+            </if>
+            </#if>
             </#list>
             <include refid="common.update"/>
         </set>
@@ -120,9 +129,11 @@
 		update ${pdmT.code} 
 		<set>
 			<#list pdmT.columns as f>
-                <if test="${f.code} !=null">
+			<#if f.code != "id">
+            <if test="${f.code} !=null">
                     ${f.code} = ${'#'}{${f.code}},
-                </if>
+            </if>
+            </#if>
             </#list>
 			<include refid="common.update"/>
         </set>
@@ -137,6 +148,7 @@
         <set>${'$'}{tableField} = null</set>
         <where>
             <if test="id!=null">id = ${'#'}{id}</if>
+            <include refid="common.condition"/>
             <include refid="condition"/>
         </where>
     </update>
@@ -144,6 +156,7 @@
     <select id="maxInt" parameterType="map" resultType="int">
         select max(${'$'}{tableField}) from ${pdmT.code}
         <where>
+        	<include refid="common.condition"/>
             <include refid="condition"/>
             <include refid="andLikeCondition"/>
         </where>

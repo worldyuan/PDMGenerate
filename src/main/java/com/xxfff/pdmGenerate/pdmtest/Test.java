@@ -9,7 +9,6 @@ import com.xxfff.pdmGenerate.config.Config;
 import com.xxfff.pdmGenerate.entity.GenerateEntity;
 import com.xxfff.utils.PDM.PDM;
 import com.xxfff.utils.PDM.PDMReference;
-import com.xxfff.utils.PDM.PDMReferenceJoin;
 import com.xxfff.utils.PDM.PDMTable;
 import com.xxfff.utils.PDM.Parser;
 
@@ -106,38 +105,47 @@ public class Test {
 			invoker.add(generateEntity);
 		}
 		
+		String code = com.xxfff.core.util.StringUtils.toFirstLowerCase(pdmT.getCode());
+		
 		/*生成js*/
 		if(null != Config.JS_PATH){
 			params = new HashMap<String, Object>();
 			params.putAll(oldParams);
 			params.put("pdmT", pdmT);
-			generateEntity = new GenerateEntity(Config.JS_TEMPLATEFILE_PATH, params, Config.JS_PATH, pdmT.getCode()+".js");
+			generateEntity = new GenerateEntity(Config.JS_TEMPLATEFILE_PATH, params, Config.JS_PATH, code+".js");
 			invoker.add(generateEntity);
 		}
 		
-		/*生成jsp页面
+		//生成jsp页面
 		if(null != Config.MANAGE_JSP_PATH){
 			//增加
 			params = new HashMap<String, Object>();
 			params.putAll(oldParams);
 			params.put("pdmT", pdmT);
-			generateEntity = new GenerateEntity(Config.JSP_ADD_TEMPLATEFILE_PATH, params, Config.MANAGE_JSP_PATH, pdmT.getCode()+".jsp");
+			generateEntity = new GenerateEntity(Config.JSP_ADD_TEMPLATEFILE_PATH, params, Config.MANAGE_JSP_PATH + "/" +code + "/","add.jsp");
 			invoker.add(generateEntity);
 			
 			//修改
 			params = new HashMap<String, Object>();
 			params.putAll(oldParams);
 			params.put("pdmT", pdmT);
-			generateEntity = new GenerateEntity(Config.JSP_EDIT_TEMPLATEFILE_PATH, params, Config.MANAGE_JSP_PATH, pdmT.getCode()+".jsp");
+			generateEntity = new GenerateEntity(Config.JSP_EDIT_TEMPLATEFILE_PATH, params, Config.MANAGE_JSP_PATH + "/" +code + "/","edit.jsp");
 			invoker.add(generateEntity);
 			
 			//管理
 			params = new HashMap<String, Object>();
 			params.putAll(oldParams);
 			params.put("pdmT", pdmT);
-			generateEntity = new GenerateEntity(Config.JSP_MANAGER_TEMPLATEFILE_PATH, params, Config.MANAGE_JSP_PATH, pdmT.getCode()+".jsp");
+			generateEntity = new GenerateEntity(Config.JSP_MANAGER_TEMPLATEFILE_PATH, params, Config.MANAGE_JSP_PATH + "/" +code + "/","manage.jsp");
 			invoker.add(generateEntity);
-		}*/
+			
+			//管理子界面
+			params = new HashMap<String, Object>();
+			params.putAll(oldParams);
+			params.put("pdmT", pdmT);
+			generateEntity = new GenerateEntity(Config.JSP_QUERY_TEMPLATEFILE_PATH, params, Config.MANAGE_JSP_PATH + "/" +code + "/","query.jsp");
+			invoker.add(generateEntity);
+		}
 	}
 	
 	public void doPDMReference(Invoker invoker, PDMReference pdmR,Map<String, Object> oldParams){
@@ -153,7 +161,11 @@ public class Test {
 	
 	public static void main(String [] args){
 		try {
-			PDM pdm = new Parser().pdmParser("/pdm/pdmtest.pdm");
+			String pdmfile = "/pdm/pdmtest.pdm";
+			if(args.length > 0){
+				pdmfile = args[0];
+			}
+			PDM pdm = new Parser().pdmParser(pdmfile);
 			Invoker invoker = new Invoker(new CommandExec(Config.TEMPLATE_PATH, Config.TEMPLATE));
 			GenerateEntity generateEntity = null;
 			Map<String, Object> oldParams = new HashMap<String, Object>();

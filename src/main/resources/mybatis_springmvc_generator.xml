@@ -2,26 +2,28 @@
 <generator>
 	<template>defaultTemplate</template>
 	<packages>
-		<package name="controller">org.jgenerator.controller</package>
-		<package name="service">org.jgenerator.service</package>
-		<package name="serviceImpl">org.jgenerator.service.impl</package>
-		<package name="dao">org.jgenerator.dao</package>
-		<package name="daoImpl">org.jgenerator.dao.impl</package>
+		<package name="controller">com.ruhuitec.controller</package>
+		<package name="service">com.ruhuitec.service</package>
+		<package name="serviceImpl">com.ruhuitec.service.impl</package>
+		<package name="dao">com.ruhuitec.dao</package>
+		<package name="daoImpl">com.ruhuitec.dao.impl</package>
+		<package name="model">com.ruhuitec.model</package>
+		<package name="modelContion">com.ruhuitec.model</package>
+		<package name="modelArray">com.ruhuitec.model.entityArray</package>
+		
+		<package name="coreController">com.xxfff.core.controller</package>
 		<package name="coreException">com.xxfff.core.exception</package>
 		<package name="coreModel">com.xxfff.core.model</package>
 		<package name="coreDao">com.xxfff.core.dao</package>
 		<package name="coreDaoImpl">com.xxfff.core.dao.impl</package>
 		<package name="coreService">com.xxfff.core.service</package>
 		<package name="coreServiceImpl">com.xxfff.core.service.impl</package>
-		<package name="model">org.jgenerator.model</package>
-		<package name="modelContion">org.jgenerator.model</package>
-		<package name="modelArray">org.jgenerator.model.entityArray</package>
 	</packages>
 	<paths>
 	    <!-- 全部相对于项目的路径 -->
 		<path name="jsPath">/WebRoot/static/manage/js/</path>
 		<path name="manageJspPath">/WebRoot/WEB-INF/jsp/manage/</path>
 		<path name="portalJspPath">/WebRoot/WEB-INF/jsp/portal/</path>
-		<path name="mapperPath">/src/main/resources/sqlmapper/</path>
+		<path name="mapperPath">/mybatismapper/</path>
 	</paths>
 </generator>
